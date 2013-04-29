@@ -130,7 +130,7 @@
     <name>1: Remote Admin</name>
     <name>2: Browser</name>
     </names>
-    <popupTime>0</popupTime>
+    <popupTime>875</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
        desktops.  Set this to 0 to disable the popup. -->
   </desktops>
@@ -347,6 +347,11 @@
         <command>gnome-terminal</command>
       </action>
     </keybind>
+    <keybind key="C-A-L">
+      <action name="Execute">
+        <command>gnome-screensaver-command -l</command>
+      </action>
+    </keybind>
     <keybind key="A-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -397,11 +402,15 @@
         <to>10</to>
       </action>
     </keybind>
-    <keybind key="A-Right">
-      <action name="ToggleMaximize"><direction>horizontal</direction></action>
+    <keybind key="W-Right">
+      <action name="ToggleMaximize">
+        <direction>horizontal</direction>
+      </action>
     </keybind>
-    <keybind key="A-Up">
-      <action name="ToggleMaximize"><direction>vertical</direction></action>
+    <keybind key="W-Up">
+      <action name="ToggleMaximize">
+        <direction>vertical</direction>
+      </action>
     </keybind>
   </keyboard>
   <mouse>
