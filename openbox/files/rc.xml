@@ -347,6 +347,11 @@
         <command>gnome-terminal</command>
       </action>
     </keybind>
+    <keybind key="C-F11">
+      <action name="Execute">
+        <command>google-chrome</command>
+      </action>
+    </keybind>
     <keybind key="C-A-L">
       <action name="Execute">
         <command>gnome-screensaver-command -l</command>
