@@ -407,12 +407,12 @@
         <to>10</to>
       </action>
     </keybind>
-    <keybind key="W-Right">
+    <keybind key="A-Right">
       <action name="ToggleMaximize">
         <direction>horizontal</direction>
       </action>
     </keybind>
-    <keybind key="W-Up">
+    <keybind key="A-Up">
       <action name="ToggleMaximize">
         <direction>vertical</direction>
       </action>
