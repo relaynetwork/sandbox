@@ -357,6 +357,11 @@
         <command>google-chrome</command>
       </action>
     </keybind>
+    <keybind key="C-F10">
+      <action name="Execute">
+        <command>gnome-terminal -e /home/relay/bin/open-for-desktop.sh --maximize</command>
+      </action>
+    </keybind>
     <keybind key="C-A-L">
       <action name="Execute">
         <command>gnome-screensaver-command -l</command>
@@ -811,7 +816,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>
