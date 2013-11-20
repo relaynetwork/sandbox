@@ -357,6 +357,11 @@
         <command>gnome-terminal -e /home/relay/bin/open-for-desktop.sh --maximize</command>
       </action>
     </keybind>
+    <keybind key="C-F9">
+      <action name="Execute">
+        <command>gnome-terminal -e "/home/relay/bin/open-for-desktop.sh ask" --maximize</command>
+      </action>
+    </keybind>
     <keybind key="C-A-L">
       <action name="Execute">
         <command>gnome-screensaver-command -l</command>
