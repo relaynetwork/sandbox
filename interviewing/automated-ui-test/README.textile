@@ -19,3 +19,5 @@ Suggestions for test automation tools:
 
 * http://docs.seleniumhq.org/
 * http://kyleburton.github.io/transition.js/site/2.0/
+* http://www.getwindmill.com/
+* http://watir.com/
