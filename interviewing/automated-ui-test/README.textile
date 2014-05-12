@@ -1,0 +1,21 @@
+h1. Create an Automated test for a single-page Web based application
+
+Example Application is a browser based TODO list:
+
+   http://swannodette.github.io/todomvc/labs/architecture-examples/om-undo/index.html
+
+* Analyze the Application
+* Produce a test plan
+* Decide on the set of features worth creating automated tests for
+* Implement one or more tests using the automation tool of your choice
+
+We would prefer if you used an open or free testing tool so that we can execute the test.
+
+There is no time-limit, please feel free to use on-line resources (documenting what you've used is a plus).
+
+You may submit your test either as a ZIP archive containing any documents and assets you've created, or you may clone this git repository and send us the URL to your repository (or a pull request).
+
+Suggestions for test automation tools:
+
+* http://docs.seleniumhq.org/
+* http://kyleburton.github.io/transition.js/site/2.0/
