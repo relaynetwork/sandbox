@@ -422,6 +422,56 @@
         <to>10</to>
       </action>
     </keybind>
+   <keybind key="C-A-1">
+      <action name="GoToDesktop">
+        <to>11</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-2">
+      <action name="GoToDesktop">
+        <to>12</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-3">
+      <action name="GoToDesktop">
+        <to>13</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-4">
+      <action name="GoToDesktop">
+        <to>14</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-5">
+      <action name="GoToDesktop">
+        <to>15</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-6">
+      <action name="GoToDesktop">
+        <to>16</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-7">
+      <action name="GoToDesktop">
+        <to>17</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-8">
+      <action name="GoToDesktop">
+        <to>18</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-9">
+      <action name="GoToDesktop">
+        <to>19</to>
+      </action>
+    </keybind>
+    <keybind key="C-A-0">
+      <action name="GoToDesktop">
+        <to>20</to>
+      </action>
+    </keybind>
     <keybind key="A-Right">
       <action name="ToggleMaximize">
         <direction>horizontal</direction>
