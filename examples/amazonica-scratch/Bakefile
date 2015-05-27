@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+bake_require "github.com/kyleburton/bake-recipies/emacs/cider.sh"
+
+bake_task run_emacs
+function run_emacs () {
+  echo emacs -nw -q -l ~/.bake/packages/github.com/kyleburton/bake-recipies/files/emacs/.emacs
+  emacs -nw -q -l ~/.bake/packages/github.com/kyleburton/bake-recipies/files/emacs/.emacs
+}
+
+bake_task init "Install emacs/cider and leiningen"
+function init () {
+  emacs-install-cider
+  emacs-install-ac-cider
+  echo "Run emacs with 'bake emacs' or 'emacs -nw -q -l ~/.bake/packages/github.com/kyleburton/bake-recipies/files/emacs/.emacs'"
+}
