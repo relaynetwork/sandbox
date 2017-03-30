@@ -4,7 +4,7 @@ Reference implementation for session based authentication server
 
 ## Usage
 
-lein run
+> lein run
 
 There is no restriction on /public/stuff:
 
