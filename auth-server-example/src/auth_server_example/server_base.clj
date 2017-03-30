@@ -1,12 +1,13 @@
 (ns auth-server-example.server-base
   (:require
+   [clojure.tools.logging          :as log]
    [ring.adapter.jetty             :refer :all]
    [ring.util.response             :refer :all]
    [ring.middleware.params         :refer [wrap-params]]
    [ring.middleware.keyword-params :refer [wrap-keyword-params]]
    [ring.middleware.session        :refer [wrap-session]]
    [ring.middleware.json           :refer [wrap-json-body wrap-json-response]]
-   [buddy.auth.backends.session    :refer [session-backend]]
+   [buddy.auth.backends            :as    backends]
    [buddy.auth                     :refer [authenticated? throw-unauthorized]]
    [buddy.auth.middleware          :refer [wrap-authentication wrap-authorization]]
    [buddy.auth.accessrules         :as access :refer [wrap-access-rules restrict]]
@@ -28,17 +29,51 @@
 (defn restricted [handler]
   (restrict handler {:handler require-login}))
 
+(defn redis-config [opts]
+  (merge
+   {:host "127.0.0.1" :port 6379 :db 1}
+   (-> opts :auth :store :redis)))
+
+(defn session-config [opts]
+  (merge
+   {:expiration-secs 60 :key-prefix ""}
+   (-> opts :auth :store :params)))
+
+(defn wrap-session-store [handler opts]
+  (let [store (when (= :session (-> opts :auth :type))
+                (carmine-store (redis-config opts) (session-config opts)))]
+    (-> handler
+        (wrap-session {:cookie-name "id"
+                       :cookie-attrs {:secure true :http-only true}
+                       :store        store}))))
+
+(defn mk-backend [opts]
+  (cond (= :session (-> opts :auth :type))
+        (backends/session)
+
+        (= :token (-> opts :auth :type))
+        (backends/jws {:secret   (-> opts :auth :api-key-secret)
+                       ;; :on-error authentication-error
+                       })
+
+        :otherwise
+        (log/errorf "No valid backend type configured for service auth")))
+
+(defn wrap-service-auth [handler opts]
+  (let [backend (mk-backend opts)
+        handler (-> (:routes opts) (wrap-authentication backend))]
+    (if (= :session (-> opts :auth :type))
+      (-> handler (wrap-session-store opts))
+      handler)))
+
 (defn mk-handler [opts]
-  (-> (:routes opts)
-      (wrap-authentication (session-backend))
-      (wrap-session {:cookie-name "id"
-                     :cookie-attrs {:secure true :http-only true}
-                     :store (carmine-store
-                             {:host "127.0.0.1" :port 6379 :db 1}
-                             {:expiration-secs 60 :key-prefix ""})})
-      (wrap-json-body {:keywords? true})
-      wrap-json-response
-      wrap-params))
+  (let [handler (if (:require-auth? opts)
+                  (-> (:routes opts) (wrap-service-auth opts))
+                  (:routes opts))]
+    (-> handler
+        (wrap-json-body {:keywords? true})
+        wrap-json-response
+        wrap-params)))
 
 (defn stop-server []
   (when @server

@@ -34,9 +34,11 @@
 
 ;; This obviously would get pulled from edn/config files per env...
 (def server-config
-     {:port 8282
-      :join? false
-      :routes main-routes})
+     {:port          8282
+      :join?         false
+      :routes        main-routes
+      :require-auth? true
+      :auth          {:type :session}})
 
 (defn -main [& args]
   (start-server server-config)
