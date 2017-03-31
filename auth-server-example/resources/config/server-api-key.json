@@ -1,0 +1,5 @@
+{"port":          8282,
+ "join?":         false,
+ "require-auth?": true,
+ "auth":          {"type":          "token",
+                  "api-key-secret": "super-secret"}}

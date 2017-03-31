@@ -1,0 +1,4 @@
+{"port":          8282,
+ "join?":         false,
+ "require-auth?": true,
+ "auth":          {"type":          "session" }}
