@@ -7,10 +7,7 @@
   :main auth-server-example.core
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
-                 [org.eclipse.jetty/jetty-server "9.4.3.v20170317"]
-                 [ring "1.6.0-RC1"]
-                 [ring/ring-json "0.4.0"]
-                 [compojure "1.5.2"]
-                 [com.taoensso/carmine "2.16.0"]
-                 [cheshire "5.7.0"]
-                 [buddy "1.3.0"]])
+                 [com.relaynetwork/service-base "0.1.0"]
+                 [ring "1.6.0-RC1" :exclusions [org.clojure/tools.namespace commons-codec org.clojure/java.classpath]]
+                 [compojure "1.5.2" :exclusions [commons-codec]]
+                 ])

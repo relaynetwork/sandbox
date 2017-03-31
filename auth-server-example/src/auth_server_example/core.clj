@@ -1,7 +1,7 @@
 (ns auth-server-example.core
   (:require
    [clojure.tools.logging           :as log]
-   [auth-server-example.server-base :refer [start-server stop-server restricted not-authorized]]
+   [com.relaynetwork.service-base.core :refer [start-server stop-server restricted not-authorized delete-session]]
    [ring.util.response              :refer :all]
    [compojure.core                  :refer :all]
    [compojure.route                 :as r]))
@@ -18,6 +18,12 @@
           (assoc :session {:identity uname}))
       (not-authorized))))
 
+(defn logout [req]
+  (when-let [session-key (:session/key req)]
+    (delete-session session-key))
+  (response
+   {:success true}))
+
 (defn sensitive-content [req]
   (response
    {:secret-message "drink your ovaltine"}))
@@ -27,9 +33,10 @@
    {:message "everyone can see this!"}))
 
 (defroutes main-routes
-  (POST "/session"          [] login)
-  (GET  "/public/stuff"     [] non-sensitive-content)
-  (GET  "/restricted/thing" [] (restricted sensitive-content))
+  (POST   "/session"          [] login)
+  (DELETE "/session"          [] logout)
+  (GET    "/public/stuff"     [] non-sensitive-content)
+  (GET    "/restricted/thing" [] (restricted sensitive-content))
   (r/not-found nil))
 
 ;; This obviously would get pulled from edn/config files per env...
@@ -48,5 +55,10 @@
 
   (do
     (stop-server)
-    (start-server {:port 8282 :join? false :routes main-routes}))
-)
+    (start-server
+     {:port          8282
+      :join?         false
+      :routes        main-routes
+      :require-auth? true
+      :auth          {:type :session}}))
+  )

@@ -7,6 +7,7 @@
    [ring.middleware.keyword-params :refer [wrap-keyword-params]]
    [ring.middleware.session        :refer [wrap-session]]
    [ring.middleware.json           :refer [wrap-json-body wrap-json-response]]
+   [ring.middleware.session.store  :as    session-store]
    [buddy.auth.backends            :as    backends]
    [buddy.auth                     :refer [authenticated? throw-unauthorized]]
    [buddy.auth.middleware          :refer [wrap-authentication wrap-authorization]]
@@ -16,6 +17,7 @@
    [compojure.route                :as r]))
 
 (defonce server (atom nil))
+(defonce session-store (atom nil))
 
 (defn not-authorized []
   (-> (response nil)
@@ -36,16 +38,18 @@
 
 (defn session-config [opts]
   (merge
-   {:expiration-secs 60 :key-prefix ""}
+   {:expiration-secs 120 :key-prefix ""}
    (-> opts :auth :store :params)))
 
+(defn delete-session [session-key]
+  (-> @session-store (session-store/delete-session session-key)))
+
 (defn wrap-session-store [handler opts]
-  (let [store (when (= :session (-> opts :auth :type))
-                (carmine-store (redis-config opts) (session-config opts)))]
-    (-> handler
-        (wrap-session {:cookie-name "id"
-                       :cookie-attrs {:secure true :http-only true}
-                       :store        store}))))
+  (reset! session-store (carmine-store (redis-config opts) (session-config opts)))
+  (-> handler
+      (wrap-session {:cookie-name "id"
+                     :cookie-attrs {:secure true :http-only true}
+                     :store        @session-store})))
 
 (defn mk-backend [opts]
   (cond (= :session (-> opts :auth :type))
