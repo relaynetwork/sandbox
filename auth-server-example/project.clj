@@ -1,5 +1,12 @@
 (defproject auth-server-example "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
+  :repositories [
+    ["releases"  {:url "s3p://relay-maven-repo/releases/"  :creds :gpg}]
+    ["snapshots" {:url "s3p://relay-maven-repo/snapshots/" :creds :gpg}]
+    ["sonatype" {:url "https://oss.sonatype.org/content/groups/public/"}]
+  ]
+  :lein-release {:scm :git}
+  :local-repo-classpath true
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
