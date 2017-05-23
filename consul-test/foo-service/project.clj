@@ -4,6 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :plugins [[lein-swank "1.4.5"]]
+  :main foo-service.core
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [tolitius/envoy "0.1.2"]
                  [http-kit "2.2.0"]
