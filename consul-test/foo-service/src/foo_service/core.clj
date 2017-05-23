@@ -32,7 +32,7 @@
   (reset! server nil))
 
 (defn -main [ip port & args]
-  (start-service ip port))
+  (start-service ip (Integer/parseInt port)))
 
 (comment
 
