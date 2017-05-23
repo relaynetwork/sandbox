@@ -22,8 +22,8 @@
                (wrap-params)
                (wrap-json-response)
                (wrap-json-body))
-           {:port 8989 :join? false}))
-  (consul/register-service ip 8989)
+           {:port port :join? false}))
+  (consul/register-service ip port)
   (log/infof "foo-service online"))
 
 (defn stop-service []
