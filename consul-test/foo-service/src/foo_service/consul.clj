@@ -4,6 +4,16 @@
    [org.httpkit.client :as http]
    [clojure.tools.logging    :as log]))
 
+(defn register-service [ip port]
+  @(http/put "http://localhost:8500/v1/agent/service/register"
+             {:headers {"Content-type" "application/json"}
+              :body (json/generate-string
+                     {"ID" "foo-service"
+                      "Name" "foo"
+                      "Tags" ["rn"]
+                      "Address" ip
+                      "Port" port
+                      "EnableTagOverride" false})}))
 
 (comment
 
@@ -14,8 +24,8 @@
   [@(http/put "http://localhost:8500/v1/agent/service/register"
               {:headers {"Content-type" "application/json"}
                :body (json/generate-string
-                      {"ID" "foo-service2"
-                       "Name" "foo2"
+                      {"ID" "foo-service"
+                       "Name" "foo"
                        "Tags" [
                                "rn-proto-services"
                                "primary"

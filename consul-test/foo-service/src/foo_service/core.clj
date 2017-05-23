@@ -1,5 +1,6 @@
 (ns foo-service.core
   (:require
+   [foo-service.consul :as consul]
    [clojure.tools.logging :as log]
    [ring.adapter.jetty    :refer [run-jetty]]
    [ring.middleware.json  :refer [wrap-json-response wrap-json-body]]
@@ -10,7 +11,7 @@
 
 (defonce server (atom nil))
 
-(defn start-service []
+(defn start-service [ip port]
   (reset! server
           (run-jetty
            (-> {:status 404}
@@ -22,6 +23,7 @@
                (wrap-json-response)
                (wrap-json-body))
            {:port 8989 :join? false}))
+  (consul/register-service ip port)
   (log/infof "foo-service online"))
 
 (defn stop-service []
@@ -29,8 +31,8 @@
     (.stop s))
   (reset! server nil))
 
-(defn -main [& args]
-  (start-service))
+(defn -main [ip port & args]
+  (start-service ip port))
 
 (comment
 
