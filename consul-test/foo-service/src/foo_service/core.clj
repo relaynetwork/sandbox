@@ -31,7 +31,12 @@
     (.stop s))
   (reset! server nil))
 
+(defn register-shutdown []
+  (-> (Runtime/getRuntime)
+      (.addShutdownHook (Thread. consul/deregister-service))))
+
 (defn -main [ip port & args]
+  (register-shutdown)
   (start-service ip (Integer/parseInt port)))
 
 (comment

@@ -15,6 +15,10 @@
                       "Port" port
                       "EnableTagOverride" false})}))
 
+(defn deregister-service []
+  @(http/put "http://localhost:8500/v1/agent/service/deregister/foo-service"
+             {:headers {"Content-type" "application/json"}}))
+
 (comment
 
   [@(http/get "http://localhost:8500/v1/agent/services")]
