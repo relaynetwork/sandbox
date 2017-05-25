@@ -38,7 +38,6 @@
   (reset! server nil))
 
 (defn -main [ip port & args]
-  (register-shutdown)
   (start-service (assoc svc-cfg
                    :Address ip
                    :Port (Integer/parseInt port))))
