@@ -10,4 +10,5 @@
                  [http-kit "2.2.0"]
                  [ring/ring-jetty-adapter "1.6.1"]
                  [ring/ring-json "0.4.0"]
-                 [webster "0.1.0-SNAPSHOT"]])
+                 [webster "0.1.0-SNAPSHOT"]
+                 [services-client "0.1.1-SNAPSHOT"]])
