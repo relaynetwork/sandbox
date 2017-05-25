@@ -15,9 +15,7 @@
       :Name          "foo"
       :Tags          ["rn"]
       :Address       "127.0.0.1"
-      :Port          8989
-      :url-prefix    "/foo"
-      :api-ns-prefix "foo-service.web.api"})
+      :Port          8989})
 
 (defn start-service [cfg]
   (reset! server
